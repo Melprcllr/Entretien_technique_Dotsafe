@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 #[Route('/')]
 class TodoController extends AbstractController
@@ -77,5 +78,14 @@ class TodoController extends AbstractController
         }
 
         return $this->redirectToRoute('app_todo_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/complete', name: 'complete_todo', methods: ['GET'])]
+    public function complete(Todo $todo, EntityManagerInterface $entityManager): RedirectResponse
+    {
+        $todo->setCompleted(true);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_todo_index');
     }
 }

@@ -33,10 +33,11 @@ class TodoType extends AbstractType
             ->add('completed', ChoiceType::class, [
                 'label' => 'La Todo est-elle complète ?*',
                 'choices' => [
-                    'Oui' => 'Option 1',
-                    'Non' => 'Option 2',
+                    'Oui' => true,
+                    'Non' => false,
                 ],
-        ])
+                'expanded' => false,
+            ])
         ;
     }
 
