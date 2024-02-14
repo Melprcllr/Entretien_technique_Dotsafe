@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Todo{% endblock %}
+{% block title %}Nouvelle Todo{% endblock %}
 
 {% block body %}
-    <h1>Create new Todo</h1>
+    <div class="card">
+        <h1 class="m-4">Créer une nouvelle Todo</h1>
 
-    {{ include('todo/_form.html.twig') }}
+        <div class="card-body">
+        {{ include('todo/_form.html.twig') }}
+        </div>
+    </div>
 
-    <a href="{{ path('app_todo_index') }}">back to list</a>
+    <a class="btn btn-outline-primary m-3" href="{{ path('app_todo_index') }}">↩ Retour</a>
 {% endblock %}
