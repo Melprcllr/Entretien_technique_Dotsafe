@@ -23,8 +23,8 @@
                 <td>{{ todo.details }}</td>
                 <td>{{ todo.completed ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_todo_show', {'id': todo.id}) }}">Voir</a>
-                    <a href="{{ path('app_todo_edit', {'id': todo.id}) }}">Modifier</a>
+                    <a class="btn btn-outline-secondary" href="{{ path('app_todo_show', {'id': todo.id}) }}">Voir</a>
+                    <a class="btn btn-outline-secondary" href="{{ path('app_todo_edit', {'id': todo.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
