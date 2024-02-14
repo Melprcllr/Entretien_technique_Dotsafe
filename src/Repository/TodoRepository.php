@@ -22,6 +22,18 @@ class TodoRepository extends ServiceEntityRepository
         parent::__construct($registry, Todo::class);
     }
 
+    public function deleteAllCompleted(): void
+    {
+        $entityManager = $this->getEntityManager();
+        $completedTodos = $this->findBy(['completed' => true]);
+
+
+        foreach ($completedTodos as $todo) {
+            $entityManager->remove($todo);
+        }
+
+        $entityManager->flush();
+    }
 //    /**
 //     * @return Todo[] Returns an array of Todo objects
 //     */
@@ -46,4 +58,5 @@ class TodoRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }

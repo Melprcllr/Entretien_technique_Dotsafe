@@ -24,13 +24,19 @@ class TodoController extends AbstractController
         $completedCount = count($completedTodos);
 
         $remainingTodos = $totalTodos - $completedCount;
-        $encouragementMessage = $remainingTodos < $totalTodos / 2 ? "Vous êtes sur la bonne voie ! Continuez !" : "";
+        if ($remainingTodos == 0) {
+            $message = "Bravo!! Vous avez accompli toutes les tâches !";
+        } elseif ($remainingTodos < $totalTodos / 2) {
+            $message = "Encore un effort ! Continuez !";
+        } else {
+            $message = "";
+        }
 
         return $this->render('todo/index.html.twig', [
             'todos' => $todos,
             'completedCount' => $completedCount,
             'totalTodos' => $totalTodos,
-            'encouragementMessage' => $encouragementMessage,
+            'message' => $message,
         ]);
     }
 
@@ -100,7 +106,7 @@ class TodoController extends AbstractController
         return $this->redirectToRoute('app_todo_index');
     }
 
-    #[Route('/todos/completed/delete', name: 'app_todo_completed_delete', methods: ['DELETE'])]
+    #[Route('/todos/completed/delete', name: 'app_todo_completed_delete', methods: ['POST'])]
     public function deleteAllCompleted(TodoRepository $todoRepository): Response
     {
         $todoRepository->deleteAllCompleted();
