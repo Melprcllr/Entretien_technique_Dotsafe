@@ -18,8 +18,19 @@ class TodoController extends AbstractController
     #[Route('/', name: 'app_todo_index', methods: ['GET'])]
     public function index(TodoRepository $todoRepository): Response
     {
+        $todos = $todoRepository->findAll();
+        $completedTodos = $todoRepository->findBy(['completed' => true]);
+        $totalTodos = count($todos);
+        $completedCount = count($completedTodos);
+
+        $remainingTodos = $totalTodos - $completedCount;
+        $encouragementMessage = $remainingTodos < $totalTodos / 2 ? "Vous êtes sur la bonne voie ! Continuez !" : "";
+
         return $this->render('todo/index.html.twig', [
-            'todos' => $todoRepository->findAll(),
+            'todos' => $todos,
+            'completedCount' => $completedCount,
+            'totalTodos' => $totalTodos,
+            'encouragementMessage' => $encouragementMessage,
         ]);
     }
 
@@ -85,6 +96,14 @@ class TodoController extends AbstractController
     {
         $todo->setCompleted(true);
         $entityManager->flush();
+
+        return $this->redirectToRoute('app_todo_index');
+    }
+
+    #[Route('/todos/completed/delete', name: 'app_todo_completed_delete', methods: ['DELETE'])]
+    public function deleteAllCompleted(TodoRepository $todoRepository): Response
+    {
+        $todoRepository->deleteAllCompleted();
 
         return $this->redirectToRoute('app_todo_index');
     }

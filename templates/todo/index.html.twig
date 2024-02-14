@@ -5,6 +5,19 @@
 {% block body %}
     <h1>Accueil</h1>
 
+    {# Affichage du nombre de todos complétés sur le nombre total de todos #}
+    <p>{{ completedCount }} / {{ totalTodos }} Todos complétés</p>
+
+    {# Affichage du message encourageant #}
+    {% if encouragementMessage %}
+        <p>{{ encouragementMessage }}</p>
+    {% endif %}
+
+    {# Ajout du bouton pour supprimer toutes les todos complétées #}
+    <form method="POST" action="{{ path('app_todo_completed_delete') }}" onsubmit="return confirm('Voulez-vous vraiment supprimer l\'ensemble des Todos ?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('DELETE') }}">
+        <button class="btn btn-outline-danger mt-3" type="submit">Supprimer toutes les Todos complétées</button>
+    </form>
 
     <table class="table">
         <thead class="thead-light">
