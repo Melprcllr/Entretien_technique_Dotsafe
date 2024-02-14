@@ -3,11 +3,17 @@
 {% block title %}Edit Todo{% endblock %}
 
 {% block body %}
-    <h1>Edit Todo</h1>
+    <h1>Modifier Todo</h1>
 
-    {{ include('todo/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_todo_index') }}">back to list</a>
+        <div class="card-body d-flex flex-column align-items-center">
+            <label class="d-flex flex-column">
+                {{ include('todo/_form.html.twig', {'button_label': 'Modifier'}) }}
+            </label>
+        </div>
+
+
+    <a class="btn btn-outline-primary" href="{{ path('app_todo_index') }}">↩ Retour</a>
 
     {{ include('todo/_delete_form.html.twig') }}
 {% endblock %}

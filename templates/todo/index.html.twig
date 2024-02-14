@@ -3,37 +3,36 @@
 {% block title %}Todo index{% endblock %}
 
 {% block body %}
-    <h1>Todo index</h1>
+    <h1>Accueil</h1>
 
     <table class="table">
-        <thead>
+        <thead class="thead-light">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Details</th>
-                <th>Completed</th>
-                <th>actions</th>
+{#                <th>Id</th>#}
+                <th>Noms</th>
+                <th>Détails</th>
+                <th>Complet</th>
             </tr>
         </thead>
         <tbody>
         {% for todo in todos %}
             <tr>
-                <td>{{ todo.id }}</td>
+{#                <td>{{ todo.id }}</td>#}
                 <td>{{ todo.name }}</td>
                 <td>{{ todo.details }}</td>
                 <td>{{ todo.completed ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_todo_show', {'id': todo.id}) }}">show</a>
-                    <a href="{{ path('app_todo_edit', {'id': todo.id}) }}">edit</a>
+                    <a class="btn btn-outline-secondary" href="{{ path('app_todo_show', {'id': todo.id}) }}">Voir</a>
+                    <a class="btn btn-outline-secondary" href="{{ path('app_todo_edit', {'id': todo.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Aucun Todo encore à afficher ...</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_todo_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_todo_new') }}">Créer une nouvelle Todo</a>
 {% endblock %}
